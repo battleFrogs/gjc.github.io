@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://gejunchao.top">
-  <title>Archives: 2018 | gejunchao的博客</title>
+  <title>mysql常用命令 | gejunchao的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="gejunchao的博客">
-<meta property="og:url" content="https://gejunchao.top/archives/2018/index.html">
+  <meta name="description" content="MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。">
+<meta name="keywords" content="常用命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql常用命令">
+<meta property="og:url" content="https://gejunchao.top/2019/09/05/mysql/index.html">
 <meta property="og:site_name" content="gejunchao的博客">
+<meta property="og:description" content="MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-09-05T13:58:04.878Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gejunchao的博客">
+<meta name="twitter:title" content="mysql常用命令">
+<meta name="twitter:description" content="MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。">
   
     <link rel="alternative" href="/atom.xml" title="gejunchao的博客" type="application/atom+xml">
   
@@ -150,64 +155,395 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mysql" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/30/hello-world/" class="archive-article-date">
-  	<time datetime="2018-12-30T12:06:23.131Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-30</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/30/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      mysql常用命令
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/05/mysql/" class="archive-article-date">
+  	<time datetime="2019-09-05T13:55:37.774Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。</p>
+<a id="more"></a>
+<h2 id="内部命令"><a href="#内部命令" class="headerlink" title="内部命令"></a>内部命令</h2><pre><code>SELECT version(); 数据库版本查询方法    
+show engines; 查询引擎
+show create table xx; 查询xx表引擎
+select @@tx_isolation;//在MySQL数据库中查看当前事务的隔离级别：
+set tx_isolation=’隔离级别名称;’ //设置隔离级别   
+SELECT * FROM information_schema.INNODB_TRX //查询正在执行的事务
+SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS; //查询正在锁的事务
+SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;  //查看等待锁的事务  
+kill  线程id       杀掉线程   （根据这个事务的线程ID（trx_mysql_thread_id）
+select ... lock in share mode语句//共享锁   
+select ...for update //排他锁       
+BEGIN 开启一个事务   
+ROLLBACK 事务回滚    
+COMMIT 事务确认
+show variables like &quot;innodb_locks_unsafe_for_binlog&quot; （默认是OFF，间隙锁是开启的） 
+set @@autocommit = 0;想开启事务，设置为0，不然1时立即提交  
+select @@autocommit;  查询事务是否立即提交的状态
+show engine innodb status 获取死锁等情况说明
+
+
+SELECT distinct TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE COLUMN_NAME = &apos;字段名&apos;  查询数据库字段名称对应的表
+</code></pre><h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><pre><code>不等于： &lt;&gt; 或者 !=   
+不为null：is not null
+为null ： is null   
+条件范围 ： in   
+模糊查询  ： like &quot;%id%&quot;   
+正则表达式  ： regexp 
+</code></pre><h3 id="数据库和表操作"><a href="#数据库和表操作" class="headerlink" title="数据库和表操作"></a>数据库和表操作</h3><pre><code>create database name; 创建数据库   
+
+use databasename; 选择数据库   
+
+drop database name 直接删除数据库，不提醒    
+
+show tables; 显示表
+</code></pre><hr>
+<h3 id="最基本语句"><a href="#最基本语句" class="headerlink" title="最基本语句"></a>最基本语句</h3><pre><code>如果存在表删除：drop table if exists tb_area;
+
+创建表：CREATE TABLE `tb_area`(
+            `area_id` INT(2) NOT NULL AUTO_INCREMENT,
+            `area_name` VARCHAR(200) NOT NULL,
+            `priority` INT(2) NOT NULL DEFAULT &apos;0&apos;,
+            `create_time` datetime DEFAULT NULL,
+            `last_edit_time` datetime DEFAULT NULL,
+            PRIMARY key(`area_id`),
+            UNIQUE KEY `UK_AREA`(`area_name`)
+        )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=&apos;utf8&apos;;
+
+选择：select * from table1 where 范围
+
+插入：insert into table1(field1,field2) values(value1,value2)
+
+删除：delete from table1 where 范围
+
+更新：update table1 set field1=value1 where 范围
+</code></pre><h3 id="关键词的sql使用"><a href="#关键词的sql使用" class="headerlink" title="关键词的sql使用"></a>关键词的sql使用</h3><pre><code>（顺序）where -&gt; group by -&gt; having -&gt; order by
+
+总数(count)：select count as totalcount from table1
+
+分组条件查询(group by和having)： select COUNT(*)  from table t group by t.field1 Having count(*)&gt;2  
+
+排序(order by)：select * from table1 order by field1,field2 [desc]   （asc是升序，desc是降序）
+
+分页(limit)：select from user u limit start,pageSize(0索引值第一个开始，5取5条，start = （curpage - 1）* pageSize)
+
+查找(like)：select * from table1 where field1 like ’%value1%’   
+
+查询出并集所有结果不去除重复 （union）：select * from Table1 union select * from Table2   
+
+
+并集不去重复（union all） ： select * from Table1 union all select * from Table2  
+
+去重字段（distinct）：select distinct vent_id,price from customers//除非两个列都不同，这将检索出所有的列（不能针对所有单个字段不同情况）
+
+条件查询（in）：select s.name from  stu s where s.id in (1,2,3,4)
+
+条件查询(exists)：select s1.class from stu s1 where exists (select 1 from stu s2 where s2.name =&apos;gjc&apos; and s1.id = s2.id)      
+
+内连接（inner join）两表完全匹配会返回：select t1.*,t2.* from table1 t1 inner join table2 t2 on t1.id = t2.id   
+
+左连接（left join） 左表完全返回： select t1.*,t2.* from table1 t1 left join table2 t2 on t1.id = t2.id    
+
+右连接（right join） 右表完全返回：select t1.*,t2.* from table t1 right join table2 t2 on t1.id = t2.id  
+
+不同条件选择判断(case..when..end) :SELECT nickname,user_name,CASE WHEN user_rank = &apos;5&apos; THEN &apos;经销商&apos;  WHEN user_rank = &apos;6&apos; THEN &apos;代理商&apos;
+WHEN user_rank = &apos;7&apos; THEN &apos;VIP&apos; ELSE &apos;注册用户&apos; END AS user_rank FROM at_users
+
+条件判断(IF(expr1,expr2,expr3)):select *,if(sva=1,&quot;男&quot;,&quot;女&quot;) as ssva from taname where sva != &quot;&quot;   
+(如果 expr1 是TRUE (expr1 &lt;&gt; 0 and expr1 &lt;&gt; NULL)，则 IF()的返回值为expr2; 否则返回值则为 expr3。IF() 的返回值为数字值或字符串值，具体情况视其所在语境而定)
+</code></pre><h2 id="函数使用"><a href="#函数使用" class="headerlink" title="函数使用"></a>函数使用</h2><pre><code>求和[sum()]：select sum(field1) as sumvalue from table1
+
+平均[avg()]：select avg(field1) as avgvalue from table1
+
+最大[max()：select max(field1) as maxvalue from table1
+
+最小[min()]：select min(field1) as minvalue from table1    
+
+绝对值[abs()]: select abs(field1) as minvalue from table1    
+
+分组查询然后组合(group_concat()): select GROUP_CONCAT(score),stuName from grade1 GROUP BY stuName;[以stuName分组，把score字段的值打印在一行，逗号分隔(默认)]        
+
+查询某字段中以逗号分隔的字符串(find_in_set):SELECT * FROM test WHERE find_in_set(&apos;3&apos;,pnum) OR find_in_set(&apos;9&apos;,pnum);   
+
+自定义排序规则(field(value,str1,str2)):select * from test order by field(status,&quot;FINISHED&quot;,&quot;DO&quot;)  //str1 -&gt;1,str2-&gt;2,null或者不存在对应0
+</code></pre><h3 id="文本函数处理"><a href="#文本函数处理" class="headerlink" title="文本函数处理"></a>文本函数处理</h3><pre><code>连接字符串[concat()]：select concat (id, name, score) as info from tt2;//结果字段拼接在一起 0gjc100
+
+返回从左边取指定长度的子串(LEFT)：select LEFT(&apos;abc123&apos;, 3)   ----&gt; abc   
+
+返回从右边取指定长度的子串(Right): select RIGHT(&apos;abc123&apos;, 3)    ----&gt; 123   
+
+返回字符串长度(Length): select LENGTH(&apos;abc&apos;)    ----&gt;3    
+
+返回小写格式字符串(LOWER): select LOWER(&apos;ABC&apos;)    ----&gt;abc    
+
+返回大写格式字符串(Upper):select UPPER(&apos;abc&apos;)    ----&gt;ABC   
+
+将字符串左边空格去除后返回(Ltrim): select LTRIM(&apos;  abc&apos;)    ----&gt;abc    
+
+将字符串右边空格去除后返回(RTRIM):select RTRIM(&apos;abc  &apos;)    ----&gt;abc   
+
+从字符串第2位开始截取3位字符(SUBSTRING) select SUBSTRING(&apos;abc123&apos;, 2, 3)---&gt; bc1   
+</code></pre><h3 id="日期和时间处理"><a href="#日期和时间处理" class="headerlink" title="日期和时间处理"></a>日期和时间处理</h3><pre><code>返回当前日期和时间[Now()]:select Now() ---&gt;2018-05-05 23:31:46    
+
+返回当前日期[CurDate()]:select CurDate()----&gt;2018-05-05    
+
+日期运算函数[Date_Add()]:select Date_Add(CurDate(),INTERVAL 31 DAY)--&gt;2018-06-05     
+日期格式化[Date_Format()]：select Date_Format(CurDate(),&apos;%Y-%m-%d %H:%i:%S&apos;)   
+
+日期时间的日期部分[Date()]:select Date(&quot;2018-05-05 23:31:46&quot;)----&gt;2018-05-05    
+
+日期时间的时间部分[Time()]:select Time(&quot;2018-05-05 23:31:46&quot;) ---&gt;23:31:46   
+
+日期时间比较相差[TIMESTAMPDIFF(type,pretime,latertime)] : SELECT * from table where TIMESTAMPDIFF(type,pretime,latertime)&gt;100     
+(TIMESTAMPDIFF函数，需要三个参数，type是比较的类型，可以比较FRAC_SECOND、SECOND、 MINUTE、 HOUR、 DAY、 WEEK、 MONTH、 QUARTER或 YEAR几种类型，pretime是前一个时间，比较时用后一个时间减前一个时间)   
+
+日期范围[between &apos;dateTime1&apos; and &apos;dateTime2&apos;]: select * from trade where  time1 between &apos;2011-03-03 17:39:05&apos; and &apos;2011-03-03 17:39:52&apos;;   
+</code></pre><hr>
+<h2 id="刷数据sql集合"><a href="#刷数据sql集合" class="headerlink" title="刷数据sql集合"></a>刷数据sql集合</h2><p><strong>update或delete语句里含有子查询时，子查询里的表不能在update或是delete语句中</strong></p>
+<h3 id="批量update语句"><a href="#批量update语句" class="headerlink" title="批量update语句"></a>批量update语句</h3><pre><code>UPDATE `core_user` a,
+(SELECT message_push_conf.user_id,message_push_conf.`open_push` 
+FROM `message_push_conf`) b 
+SET a.`switch_push`=b.open_push
+WHERE a.id=b.user_id     
+
+
+#子查询（不支持）
+//update question q set q.`level`=2 where q.id in( select id from  question where id&gt;=2111 limit 165,165);
+
+
+#改写
+update question q inner join 
+( select id from  question where id&gt;=2111 limit 165,165) t 
+on q.id=t.id set q.`level`=2;    
+
+#另一种方式
+UPDATE s SET s.ClassName=c.ClassName FROM [dbo].[StudentDemo] s
+INNER JOIN [dbo].[ClassDemo] c ON s.ClassID=c.ClassID
+</code></pre><h3 id="insert刷数据"><a href="#insert刷数据" class="headerlink" title="insert刷数据"></a>insert刷数据</h3><pre><code>1.两张表字段一致，并插入全部数据    
+INSERT INTO 目标表 SELECT  * FROM 来源表 ;
+
+2.要将 articles 表插入到 newArticles 表中，  
+INSERT INTO  newArticles SELECT  * FROM articles ;
+
+3.只希望导入指定字段   
+INSERT INTO 目标表 (字段1, 字段2, ...) SELECT 字段1, 字段2, ...FROM 来源表 ;
+</code></pre><h3 id="delete-刷数据"><a href="#delete-刷数据" class="headerlink" title="delete 刷数据"></a>delete 刷数据</h3><pre><code>delete from t1 where 条件 
+delete t1 from t1 where 条件 
+delete t1 from t1,t2 where 条件 （从数据表t1中把那些id值在数据表t2里有匹配的记录全删除 掉1）
+delete t1 from t1 left join t2 on t1.t_id = t2.t_id where t1.t_id &gt;1;
+
+#子查询（不支持）
+//delete from `user` where id in (
+   select min(id) as id from `user` group by wx_open_id having count(1)&gt;1
+);
+
+#改写
+delete from `user` where id in (
+    select id from(    
+       select min(id) as id from `user` group by wx_open_id having count(1)&gt;1
+    ) t
+);
+</code></pre><h2 id="额外述说"><a href="#额外述说" class="headerlink" title="额外述说"></a>额外述说</h2><h3 id="STR-TO-DATE字符串转日期类型"><a href="#STR-TO-DATE字符串转日期类型" class="headerlink" title="STR_TO_DATE字符串转日期类型"></a>STR_TO_DATE字符串转日期类型</h3><pre><code>SELECT STR_TO_DATE(&apos;2017-09-20 08:30:45&apos;,   &apos;%Y-%m-%d %H:%i:%S&apos;);---&gt;2017-09-20 08:30:45（日期Date格式）
+</code></pre><h3 id="Date-FORMAT日期类型转字符串"><a href="#Date-FORMAT日期类型转字符串" class="headerlink" title="Date_FORMAT日期类型转字符串"></a>Date_FORMAT日期类型转字符串</h3><pre><code>SELECT DATE_FORMAT(NOW(),   &apos;%Y-%m-%d %H:%i:%S&apos;); ---&gt;2017-04-05 16:53:59（String型格式）
+</code></pre><h3 id="分组取最值"><a href="#分组取最值" class="headerlink" title="分组取最值"></a>分组取最值</h3><blockquote>
+<p>group by 然后取最大max或最小min 函数时，并不能按照分组的对应的查询出来    </p>
+</blockquote>
+<p>解决方法：</p>
+<p>1.先将sql排序，正序或者倒序，然后再groupby分组取值    </p>
+<pre><code>select * from (select * from member_payment   
+            order by id desc limit 10000000 ) t group by member_id limit 10  
+</code></pre><p>2.联合查询，将最大值取出来，然后关联条件查询出    </p>
+<pre><code>select * from `member_payment` where EXISTS (  
+    select `id` from (  
+        SELECT max(`id`) as id FROM `member_payment` group by `member_id` limit 10) t   
+    where t.`id`=`member_payment`.`id`  
+</code></pre><p>)  </p>
+<h3 id="主表信息加从表信息查询"><a href="#主表信息加从表信息查询" class="headerlink" title="主表信息加从表信息查询"></a>主表信息加从表信息查询</h3><p>外面主表，查询显示字段有从表关联外表</p>
+<pre><code>select 
+u.user_id userId,
+u.user_name userName,
+(select r.role_name from role r where r.user_id = u.user_id ) roleName,
+from user u
+where u.user_id = 1
+</code></pre><h3 id="count"><a href="#count" class="headerlink" title="count(*)"></a>count(*)</h3><pre><code>count(*)效率优于count(1)和count(key)   
+count(column)：表示结果集中有多少个column字段不为空的记录     
+count(*):表示整个结果集有多少条记录  
+
+多个查询count结合   
+Select A,
+count(B) as total,
+sum(case when B &gt; 30 then 1 else 0 end) as total1,
+sum(case when B &gt; 20 then 1 else 0 end) as total2 
+from ABC group by A
+</code></pre><h3 id="清空数据表"><a href="#清空数据表" class="headerlink" title="清空数据表"></a>清空数据表</h3><pre><code>TRUNCATE TABLE  `mytable`   
+</code></pre><h3 id="union的排序"><a href="#union的排序" class="headerlink" title="union的排序"></a>union的排序</h3><h4 id="1-使用了union-All的不能进行各自排序（会报错）"><a href="#1-使用了union-All的不能进行各自排序（会报错）" class="headerlink" title="1.使用了union All的不能进行各自排序（会报错）"></a>1.使用了union All的不能进行各自排序（会报错）</h4><pre><code>SELECT `id`,`username`,`mobile`,`time`,id AS leader 
+FROM `grouporder_leader`
+WHERE `courseid` = 21 AND `merchid` = 23 AND `status` = 1 
+ORDER BY time DESC 
+UNION ALL 
+SELECT leadorderid,username,mobile,time,null 
+FROM `grouporder_partner`
+WHERE courseid=21 and status=1 and merchid=23 
+ORDER BY time DESC   
+</code></pre><h4 id="2-可以通过起别名查询-起到先合并再排序的作用（正确）"><a href="#2-可以通过起别名查询-起到先合并再排序的作用（正确）" class="headerlink" title="2.可以通过起别名查询 起到先合并再排序的作用（正确）"></a>2.可以通过起别名查询 起到先合并再排序的作用（正确）</h4><pre><code># union all 的用法
+SELECT a.id,a.username,a.mobile,a.time,a.leader 
+FROM (SELECT `id`,`username`,`mobile`,`time`,id AS leader 
+    FROM `grouporder_leader` WHERE `courseid` = 21 AND `merchid` = 23 AND `status` = 1 
+    UNION ALL 
+    SELECT leadorderid,username,mobile,time,null 
+    FROM `grouporder_partner` WHERE courseid=21 and status=1 and merchid=23
+) AS a 
+ORDER BY time DESC
+
+# union用法
+select supplier_id as id, supplier_name as name  
+from suppliers  
+UNION  
+select company_id as id, company_name as name  
+from companies  
+ORDER BY name;  
+</code></pre><h4 id="3-先排序再合并的作用-正确"><a href="#3-先排序再合并的作用-正确" class="headerlink" title="3.先排序再合并的作用(正确)"></a>3.先排序再合并的作用(正确)</h4><pre><code>语句1：select s1.id,s1.name from stu1 s1 order by stu2.score limit 9999999
+语句2: select s2.id,s2.name from stu2 s2 order by stu2.score  limit 9999999
+将语句1和语句2在包上一层select,例如  select t.* from ( 语句1) t union all select m.* from (语句2) m;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Testing</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Another Tag</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">常用命令</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+		  <!--
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+		  -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+		  <!--
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+		  -->
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+<!--
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://gejunchao.top/2019/09/05/mysql/" alt="微信分享二维码">
+    </div>
+</div>
+-->
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/09/05/linux/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux常用命令</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -217,7 +553,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 BattleFrog
+    		&copy; 2019 BattleFrog
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -230,8 +566,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -297,6 +633,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Another Tag</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">常用命令</a>
               </li>
             
             <div class="clearfix"></div>
